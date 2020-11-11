@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>COVID API</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<style>
+		h2{ margin-bottom:0;}
+		address,a{font-size: 150%;}
+	</style>
+</head>
+<body>
+	<main>
+	<h1>Covid Resources</h1>
+	<form>
+		<fieldset>
+	  		<label for="cars">Choose a state:</label>
+	  		<select id="state">
+	  			<!-- CASE MATTERS FOR THE VALUE!! -->
+	    	  <option value="alabama">Alabama</option>
+	    	  <option value="alaska">Alaska</option>
+	    	  <option value="arizona">Arizona</option>
+	    	  <option value="arkansas">Arkansas</option>
+	    	  <option value="california">California</option>
+	    	  <option value="florida">Florida</option>
+	    	  <option value="michigan">Michigan</option>
+	    	  
+	  		</select>
+  		</fieldset>
+  	</form>
+	<div id = "container">
+
+	</div>
+	</main>
+	
+	<script>
+		document.querySelector("#state").addEventListener("change", function() {
+			var state = document.querySelector("#state").value;
+			var query="https://covid-19-testing.github.io/locations/"+ state+ "/complete.json";
+			console.log("QUERY IS--")
+			console.log(query);
+		 
+		 	$.getJSON(query,function(json){
+		        //Use json to update the values.  I would 
+		        //print it to the console
+		        // console.log(JSON.stringify(json));
+		        console.log(json[0])
+		        console.log(json[0].name)
+		       	console.log(json[0].physical_address[0].city)
+		       	console.log(json[0].phones[0].number)
+
+		       	var cont = document.querySelector("div")
+		       	removeAllChildNodes(cont)
+
+		       	for (let i = 0; i < json.length;i++){
+		       		try{
+			        	var node = document.createElement("h2");
+		  				var textnode = document.createTextNode(json[i].name);
+		  				node.appendChild(textnode);
+		  				cont.appendChild(node);
+					}
+					catch(err) {
+					  console.log("No Name");
+					}
+					try{
+		  				var node = document.createElement("address");
+		  				var textnode = document.createTextNode(json[i].physical_address[0].city);
+		  				node.appendChild(textnode);
+		  				cont.appendChild(node);
+					}
+					catch(err) {
+					  console.log("No City");
+					}
+
+					try{
+		  				var node = document.createElement("a");
+		  				var textnode = document.createTextNode(json[i].phones[0].number);
+		  				node.href = json[i].phones[0].number;
+		  				node.appendChild(textnode);
+		  				cont.appendChild(node);
+					}
+					catch(err) {
+					  console.log("No Phone");
+					}
+				}
+			});
+
+		});
+
+	function removeAllChildNodes(parent) {
+    	while (parent.firstChild) {
+        	parent.removeChild(parent.firstChild);
+    }
+}
+</script>
+</body>
+</html>

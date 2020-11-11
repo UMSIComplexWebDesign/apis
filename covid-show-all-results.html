@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>COVID API</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<style>
+		h2{ margin-bottom:0;}
+		address,a{font-size: 150%;}
+	</style>
+</head>
+<body>
+	<main>
+	<h1>Covid Resources</h1>
+	
+	<div id = "container">
+
+	</div>
+	</main>
+	
+	<script>
+		var query="https://covid-19-testing.github.io/locations/michigan/complete.json";
+		console.log(query);
+	 
+	 	$.getJSON(query,function(json){
+	        //Use json to update the values.  I would 
+	        //print it to the console
+	        // console.log(JSON.stringify(json));
+	        console.log(json[0])
+	        console.log(json[0].name)
+	       	console.log(json[0].physical_address[0].city)
+	       	console.log(json[0].phones[0].number)
+
+	       	var cont = document.querySelector("div")
+	       	for (let i = 0; i < json.length;i++){
+	        	var node = document.createElement("h2");
+  				var textnode = document.createTextNode(json[i].name);
+  				node.appendChild(textnode);
+  				cont.appendChild(node);
+
+  				var node = document.createElement("address");
+  				var textnode = document.createTextNode(json[i].physical_address[0].city);
+  				node.appendChild(textnode);
+  				cont.appendChild(node);
+
+  				var node = document.createElement("a");
+  				var textnode = document.createTextNode(json[i].phones[0].number);
+  				node.href = json[i].phones[0].number;
+  				node.appendChild(textnode);
+  				cont.appendChild(node);
+
+			}
+
+
+		});
+</script>
+</body>
+</html>

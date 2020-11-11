@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sample API with Muse</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+</head>
+<body>
+  <main>
+  <h1>Food Finder</h1>
+  <p>Can't decide what you want to eat?  Let me make some suggestions</p>
+  <fieldset>
+    <legend>Select the meal and a food</legend>
+    <input type="radio" id="b" name="meal-type" value="breakfast" checked="">
+    <label for="b">Breakfast</label><br>
+
+    <input type="radio" id="l" name="meal-type" value="lunch">
+    <label for="l">Lunch</label><br>
+
+    <input type="radio" id="d" name="meal-type" value="dinner">
+    <label for="d">Dinner</label><br>
+
+    <input type="radio" id="s" name="meal-type" value="snack">
+    <label for="s">Snack</label><br>
+    
+    <label for="food">Name a food or ingredient that sounds good right now.</label>
+
+      <input type="text" placeholder="Cheese" id = "food" required>
+    <p>Refresh page to use the same word...</p>
+  </fieldset>
+  <h2>My Suggestion Is....</h2>
+  </main>
+  <!-- NEW -->
+  <script src="js/muse.js"></script>
+  
+</body>
+</html>
